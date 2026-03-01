@@ -1,5 +1,5 @@
 #ifndef ORDER_POOL_H
-# define ORDER_POOL_H
+#define ORDER_POOL_H
 
 #include <vector>
 #include <cstdint>
@@ -13,7 +13,7 @@ struct Order {
 
     Order* next = nullptr;
     Order* prev = nullptr;
-}
+};
 
 class OrderPool {
     private:
@@ -33,6 +33,16 @@ class OrderPool {
         if(freeList.empty()) {
             return nullptr;
         }
-        
+        Order* o = freeList.back();
+        freeList.pop_back();
+        return o;
     }
-}
+
+    void releaseOrder(Order* o) {
+        if (!o) return; // guard check for if someone passes NULL
+        o->next = nullptr;
+        o->prev = nullptr;
+        freeList.push_back(o);
+    }
+};
+#endif

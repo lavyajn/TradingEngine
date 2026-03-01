@@ -17,7 +17,7 @@ struct Order {
     Order* next = nullptr;
     Order* prev = nullptr;
 
-    void reset {
+    void reset() {
     id = 0;
     price = 0;
     quantity = 0;
